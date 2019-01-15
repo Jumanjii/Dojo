@@ -1,0 +1,2 @@
+drop_column("dailies", "reset_at")
+drop_column("dailies", "recurrence")

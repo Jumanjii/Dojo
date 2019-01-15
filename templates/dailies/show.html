@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>Daily#Show</h1>
+</div>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item"><a href="<%= dailiesPath() %>" class="btn btn-info">Back to all Dailies</a></li>
+  <li class="list-inline-item"><a href="<%= editDailyPath({ daily_id: daily.ID })%>" class="btn btn-warning">Edit</a></li>
+  <li class="list-inline-item"><a href="<%= dailyPath({ daily_id: daily.ID })%>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+</ul>
+
+<p>
+ <strong>Name</strong>: <%= daily.Name %>
+</p>
+<p>
+ <strong>Recurrence</strong>: <%= daily.Recurrence %>
+</p>
+<p>
+ <strong>CreatedAt</strong>: <%= daily.CreatedAt %>
+</p>
+<p>
+ <strong>UpdatedAt</strong>: <%= daily.UpdatedAt %>
+</p>
+<p>
+ <strong>ResetAt</strong>: <%= daily.ResetAt %>
+</p>

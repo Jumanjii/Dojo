@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>Edit Daily</h1>
+</div>
+
+<%= form_for(daily, {action: dailyPath({ daily_id: daily.ID }), method: "PUT"}) { %>
+  <%= partial("dailies/form.html") %>
+  <a href="<%= dailyPath({ daily_id: daily.ID }) %>" class="btn btn-warning" data-confirm="Are you sure?">Cancel</a>
+<% } %>
