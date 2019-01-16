@@ -9,6 +9,7 @@
   <thead>
 	  <th>Name</th>
 	  <th>Last Reset</th>
+	  <th>Next Due date</th>
   <th>&nbsp;</th>
   </thead>
   <tbody>
@@ -16,11 +17,16 @@
       <tr>
       <td><%= daily.Name  %></td>
       <td><%= daily.ResetAt %></td>
+      <%= if (dueDatePassed(daily)) {%>
+      <td> <span class="badge badge-danger"><%= getDueDate(daily)%></span></td>
+      <%} else { %>
+      	<td> <span class="badge badge-info"><%= getDueDate(daily)%></span></td>
+      <% } %>	
       <td>
           <div class="pull-right">
+            <a href="<%= editDailyPath({ daily_id: daily.ID }) %>" class="btn btn-success">Reset</a>
             <a href="<%= dailyPath({ daily_id: daily.ID }) %>" class="btn btn-info">View</a>
             <a href="<%= editDailyPath({ daily_id: daily.ID }) %>" class="btn btn-warning">Edit</a>
-            <a href="<%= dailyPath({ daily_id: daily.ID }) %>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
           </div>
         </td>
       </tr>

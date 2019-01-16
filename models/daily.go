@@ -42,6 +42,9 @@ func (d *Daily) Validate(tx *pop.Connection) (*validate.Errors, error) {
 // ValidateCreate gets run every time you call "pop.ValidateAndCreate" method.
 // This method is not required and may be deleted.
 func (d *Daily) ValidateCreate(tx *pop.Connection) (*validate.Errors, error) {
+	if (d.ResetAt == time.Time{}) {
+		d.ResetAt = time.Now()
+	}
 	return validate.NewErrors(), nil
 }
 

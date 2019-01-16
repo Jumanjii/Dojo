@@ -1,6 +1,8 @@
 package actions
 
 import (
+	"time"
+
 	"github.com/Jumanjii/dojo/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
@@ -22,6 +24,20 @@ import (
 // DailiesResource is the resource for the Daily model
 type DailiesResource struct {
 	buffalo.Resource
+}
+
+func getDueDate(d models.Daily) string {
+	dueDate := d.ResetAt.Add(time.Hour * time.Duration(d.Recurrence))
+	return dueDate.Format("Mon, 02 Jan 2006 15:04:05")
+}
+
+func dueDatePassed(d models.Daily) bool {
+	dueDate := d.ResetAt.Add(time.Hour * time.Duration(d.Recurrence))
+	if time.Now().Before(dueDate) {
+		return false
+	}
+
+	return true
 }
 
 // List gets all Dailies. This function is mapped to the path
@@ -47,6 +63,8 @@ func (v DailiesResource) List(c buffalo.Context) error {
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)
 
+	c.Set("dueDatePassed", dueDatePassed)
+	c.Set("getDueDate", getDueDate)
 	return c.Render(200, r.Auto(c, dailies))
 }
 
