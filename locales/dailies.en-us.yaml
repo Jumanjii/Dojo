@@ -1,0 +1,6 @@
+- id: "daily.created.success"
+  translation: "Daily was successfully created."
+- id: "daily.updated.success"
+  translation: "Daily was successfully updated."
+- id: "daily.destroyed.success"
+  translation: "Daily was successfully destroyed."

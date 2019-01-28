@@ -1,0 +1,2 @@
+add_column("dailies", "reset_at", "time", {})
+add_column("dailies", "recurrence", "integer", {})
