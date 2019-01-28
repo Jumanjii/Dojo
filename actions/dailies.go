@@ -40,6 +40,10 @@ func dueDatePassed(d models.Daily) bool {
 	return true
 }
 
+func now() time.Time {
+	return time.Now()
+}
+
 // List gets all Dailies. This function is mapped to the path
 // GET /dailies
 func (v DailiesResource) List(c buffalo.Context) error {
@@ -65,6 +69,8 @@ func (v DailiesResource) List(c buffalo.Context) error {
 
 	c.Set("dueDatePassed", dueDatePassed)
 	c.Set("getDueDate", getDueDate)
+	c.Set("now", now)
+
 	return c.Render(200, r.Auto(c, dailies))
 }
 

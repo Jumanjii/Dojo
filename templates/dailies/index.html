@@ -24,7 +24,7 @@
       <% } %>	
       <td>
           <div class="pull-right">
-            <a href="<%= editDailyPath({ daily_id: daily.ID }) %>" class="btn btn-success">Reset</a>
+		  <a href="<%= dailiesPath() %>"  onClick="test(<%= "\"" + daily.ID + "\"" %>)" class="btn btn-success">Reset</a>
             <a href="<%= dailyPath({ daily_id: daily.ID }) %>" class="btn btn-info">View</a>
             <a href="<%= editDailyPath({ daily_id: daily.ID }) %>" class="btn btn-warning">Edit</a>
           </div>
@@ -37,3 +37,17 @@
 <div class="text-center">
   <%= paginator(pagination) %>
 </div>
+
+<!-- TODO: Change this dirty hack. Here to have a fast functionnal V0.0.1 and get feedback about the app :-) -->
+<script>
+	function test(id) {
+		var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+		var now = new Date(Date.now() - tzoffset)
+		var body = {id: id, reset_at: now.toISOString()}
+
+		var xhr = new XMLHttpRequest()
+		xhr.open("PUT", id, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(JSON.stringify(body));
+	}
+</script>
