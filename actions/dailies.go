@@ -67,9 +67,13 @@ func (v DailiesResource) List(c buffalo.Context) error {
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)
 
+	// Helpers for template.
 	c.Set("dueDatePassed", dueDatePassed)
 	c.Set("getDueDate", getDueDate)
 	c.Set("now", now)
+
+	// Helpers for navbar.
+	c.Set("currentResource", "dailies")
 
 	return c.Render(200, r.Auto(c, dailies))
 }
@@ -91,12 +95,18 @@ func (v DailiesResource) Show(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
+	// Helpers for navbar.
+	c.Set("currentResource", "dailies")
+
 	return c.Render(200, r.Auto(c, daily))
 }
 
 // New renders the form for creating a new Daily.
 // This function is mapped to the path GET /dailies/new
 func (v DailiesResource) New(c buffalo.Context) error {
+	// Helpers for navbar.
+	c.Set("currentResource", "dailies")
+
 	return c.Render(200, r.Auto(c, &models.Daily{}))
 }
 
@@ -155,6 +165,8 @@ func (v DailiesResource) Edit(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
+	// Helpers for navbar.
+	c.Set("currentResource", "dailies")
 	return c.Render(200, r.Auto(c, daily))
 }
 
