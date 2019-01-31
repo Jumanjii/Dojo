@@ -53,8 +53,9 @@ ALTER TABLE public.schema_migration OWNER TO postgres;
 CREATE TABLE public.tasks (
     id uuid NOT NULL,
     title character varying(255) NOT NULL,
-    note character varying(255) NOT NULL,
-    owner character varying(255) NOT NULL,
+    description character varying(255),
+    done_at timestamp without time zone,
+    owner character varying(255),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
