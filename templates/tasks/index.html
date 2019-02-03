@@ -18,13 +18,17 @@
       <tr>
       <td><%= task.Title %></td>
         <td><%= task.Description %></td>
-        <td><%= task.DoneAt %></td>
+	<%= if (!isNullTime(task.DoneAt)) {%>
+      		<td> <span class="badge badge-success"><%= task.DoneAt %></span></td>
+	<% } else { %>
+		<td></td>	
+	<% } %>
         <td><%= task.Owner %></td>
         <td>
           <div class="pull-right">
-            <a href="<%= taskPath({ task_id: task.ID }) %>" class="btn btn-info">View</a>
             <a href="<%= editTaskPath({ task_id: task.ID }) %>" class="btn btn-warning">Edit</a>
-            <a href="<%= taskPath({ task_id: task.ID }) %>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+	    <a href="<%= tasksPath() %>"  onClick="takeIt(<%= "\"" + task.ID + "\"" + ",\"" + current_user.Email + "\"" %>)" class="btn btn-primary">I take it !</a>
+	    <a href="<%= tasksPath() %>"  onClick="done(<%= "\"" + task.ID + "\"" %>)" class="btn btn-success">Done</a>
           </div>
         </td>
       </tr>
@@ -35,3 +39,26 @@
 <div class="text-center">
   <%= paginator(pagination) %>
 </div>
+
+<!-- TODO: Change this dirty hack. Here to have a fast functionnal V0.0.1 and get feedback about the app :-) -->
+<script>
+	function takeIt(id, owner) {
+		var body = {id,owner}
+
+		var xhr = new XMLHttpRequest()
+		xhr.open("PUT", id, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(JSON.stringify(body));
+	}
+	
+	function done(id) {
+		var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+		var now = new Date(Date.now() - tzoffset)
+		var body = {id: id, done_at: now.toISOString()}
+
+		var xhr = new XMLHttpRequest()
+		xhr.open("PUT", id, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(JSON.stringify(body));
+	}
+</script>

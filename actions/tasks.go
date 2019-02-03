@@ -4,6 +4,7 @@ import (
 	"github.com/Jumanjii/dojo/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/nulls"
 	"github.com/pkg/errors"
 )
 
@@ -22,6 +23,10 @@ import (
 // TasksResource is the resource for the Task model
 type TasksResource struct {
 	buffalo.Resource
+}
+
+func isNullTime(t nulls.Time) bool {
+	return t.Time.Equal(nulls.Time{}.Time)
 }
 
 // List gets all Tasks. This function is mapped to the path
@@ -46,6 +51,9 @@ func (v TasksResource) List(c buffalo.Context) error {
 
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)
+
+	// Helpers for template.
+	c.Set("isNullTime", isNullTime)
 
 	return c.Render(200, r.Auto(c, tasks))
 }
