@@ -21,6 +21,14 @@
 	    <% } %>
         		<a class="nav-link" href="/dailies">Dailies</a>
       		</li>
+	    <%= if (currentResource == "tasks") { %>
+	    	<li   class="nav-item active">
+            <% } else { %>	
+	    	<li   class="nav-item">
+	    <% } %>
+        		<a class="nav-link" href="/tasks">Todo</a>
+      		</li>
+
     </ul>
     <ul class="navbar-nav ml-auto">
 	<li class="nav-item">
