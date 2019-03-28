@@ -17,7 +17,6 @@ type Task struct {
 	UpdatedAt   time.Time    `json:"updated_at" db:"updated_at"`
 	Title       string       `json:"title" db:"title"`
 	Description nulls.String `json:"description" db:"description"`
-	DoneAt      nulls.Time   `json:"done_at" db:"done_at"`
 	Owner       nulls.String `json:"owner" db:"owner"`
 }
 
