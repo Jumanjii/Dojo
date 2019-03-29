@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.1 (Debian 11.1-1.pgdg90+1)
--- Dumped by pg_dump version 11.1
+-- Dumped by pg_dump version 11.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -36,6 +36,20 @@ CREATE TABLE public.dailies (
 ALTER TABLE public.dailies OWNER TO postgres;
 
 --
+-- Name: habits; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.habits (
+    id uuid NOT NULL,
+    name character varying(255) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.habits OWNER TO postgres;
+
+--
 -- Name: schema_migration; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -54,7 +68,6 @@ CREATE TABLE public.tasks (
     id uuid NOT NULL,
     title character varying(255) NOT NULL,
     description character varying(255),
-    done_at timestamp without time zone,
     owner character varying(255),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -84,6 +97,14 @@ ALTER TABLE public.users OWNER TO postgres;
 
 ALTER TABLE ONLY public.dailies
     ADD CONSTRAINT dailies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: habits habits_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.habits
+    ADD CONSTRAINT habits_pkey PRIMARY KEY (id);
 
 
 --
